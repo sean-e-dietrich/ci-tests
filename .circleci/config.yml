@@ -5,3 +5,4 @@ jobs:
       - image: docker:dind
     steps:
       - checkout
+      - setup_remote_docker
