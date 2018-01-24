@@ -1,0 +1,47 @@
+version: "2.1"
+
+services:
+  # BackstopJS
+  backstop:
+    hostname: backstop
+    image: docksal/backstopjs
+    volumes:
+      - ${PROJECT_ROOT}/tests/backstop:/src
+    # Keep the container running
+    entrypoint: "top -b"
+
+  # Behat
+  behat:
+    hostname: behat
+    image: docksal/behat
+    volumes:
+      - ${PROJECT_ROOT}/tests/behat:/src
+    # Keep the container running
+    entrypoint: "top -b"
+
+  # Selenium
+  browser:
+    hostname: browser
+    # Pick/uncomment one
+    image: selenium/standalone-chrome
+    #image: selenium/standalone-firefox
+
+  # Web
+  web:
+    extends:
+      file: ${HOME}/.docksal/stacks/services.yml
+      service: web
+    depends_on:
+      - cli
+
+  # DB
+  db:
+    extends:
+      file: ${HOME}/.docksal/stacks/services.yml
+      service: db
+
+  # CLI
+  cli:
+    extends:
+      file: ${HOME}/.docksal/stacks/services.yml
+      service: cli

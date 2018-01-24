@@ -5,3 +5,9 @@ jobs:
     steps:
       - checkout
       - run: curl -fsSL https://get.docksal.io | sh
+      - run: fin -v
+      - run: fin init
+      - run: fin test
+      - run: fin behat
+      - run: fin backstop reference --config=backstop-example.json
+      - run: fin backstop test --config=backstop-example.json
