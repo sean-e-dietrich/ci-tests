@@ -10,15 +10,6 @@ services:
     # Keep the container running
     entrypoint: "top -b"
 
-  # Behat
-  behat:
-    hostname: behat
-    image: docksal/behat
-    volumes:
-      - ${PROJECT_ROOT}:/src
-    # Keep the container running
-    entrypoint: "top -b"
-
   # Selenium
   browser:
     hostname: browser

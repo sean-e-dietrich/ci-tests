@@ -99,3 +99,8 @@ Feature: Content
     Then I should see the text "Article by Joe"
     # Todo: The node is created by 'Anonymous', but it should be created by 'Joe User'
     # And I should see the link "Joe User"
+
+  @js
+  Scenario: Test Home page
+    Given I am on the homepage
+    Then I should see "My Drupal 8 Site"
