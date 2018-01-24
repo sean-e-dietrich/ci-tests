@@ -1,19 +1,41 @@
 #!/usr/bin/env bash
 
-## Run Behat v3.x
+## Run project's Behat tests.
 ##
-## Usage: fin behat3
+## Usage: fin behat [--path=path] [arguments]
+##
+## path defaults to tests/behat
 
+# Environment variables passed from fin:
+#
+#   $PROJECT_ROOT - (string) absolute path to NEAREST .docksal folder
+#   $VIRTUAL_HOST - (string) ex. projectname.docksal
+#   $DOCROOT - name of the docroot folder
+#   $DOCKER_RUNNING - (string) "true" or "false"
 
-# Console colors
-red='\033[0;31m'
-green='\033[0;32m'
-green_bg='\033[42m'
-yellow='\033[1;33m'
-NC='\033[0m'
+params=''
+path='tests/behat'
+for i in "$@"; do
+	case "$i" in
+		--path=*)
+			path="${i#*=}"
+			;;
+		*)
+			params="$params$i "
+			;;
+	esac;
+done
 
-# Run Behat
-# Trim CR(\r) from the output, otherwise there will be issues passing it to the docker binary on Windows.
-BEHAT="docker exec $(docker-compose ps -q behat | tr -d '\r') behat"
+behat_yml_path="$PROJECT_ROOT/$path/behat.yml"
+if [[ ! -f "$behat_yml_path" ]]; then
+	echo "Could not find $behat_yml_path"
+	exit 1
+fi
 
-$BEHAT "$@"
+cd $PROJECT_ROOT
+# Make sure Composer dependencies are installed
+if [[ ! -d "$path/vendor" ]]; then
+	fin exec "cd $path && composer install --prefer-source --no-interaction"
+fi
+# Launch Behat tests
+fin exec "cd $path && bin/behat -p docker $params"

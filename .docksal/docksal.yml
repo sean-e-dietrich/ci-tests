@@ -15,7 +15,7 @@ services:
     hostname: behat
     image: docksal/behat
     volumes:
-      - ${PROJECT_ROOT}/tests/behat:/src
+      - ${PROJECT_ROOT}:/src
     # Keep the container running
     entrypoint: "top -b"
 

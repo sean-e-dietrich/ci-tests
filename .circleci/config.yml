@@ -8,6 +8,5 @@ jobs:
       - run: fin -v
       - run: fin init
       - run: fin test
+      - run: fin behat --version
       - run: fin behat
-      - run: fin backstop reference --config=backstop-example.json
-      - run: fin backstop test --config=backstop-example.json
