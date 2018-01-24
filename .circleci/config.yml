@@ -5,4 +5,3 @@ jobs:
     steps:
       - checkout
       - run: curl -fsSL https://get.docksal.io | sh
-      - run: newgrp docker
