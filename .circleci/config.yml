@@ -16,5 +16,5 @@ jobs:
       - image: selenium/standalone-chrome
         name: browser
     steps:
-      - rm -rf /var/www/*
+      - run: rm -rf /var/www/*
       - checkout
