@@ -20,6 +20,9 @@ jobs:
       - run: echo " StrictHostKeyChecking no" >> /etc/ssh/ssh_config
       - run:
           command: |
+            export DEBIAN_NONINTERACTVE=noninteractive
+            apt update -y
+            apt install -y xvfb
             # Configure and run the virtual display.
             export DISPLAY=:99
             sh -e /etc/init.d/xvfb start
