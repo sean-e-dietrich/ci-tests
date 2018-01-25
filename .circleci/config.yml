@@ -17,9 +17,5 @@ jobs:
         name: browser
     steps:
       - run: rm -rf /var/www/*
-      - run:
-          command: |
-            if [ ! -d ~/.ssh ]; then mkdir ~/.ssh; fi
-            echo "Host *" >> ~/.ssh/config
-            echo " StrictHostKeyChecking no" >> ~/.ssh/config
+      - run: echo " StrictHostKeyChecking no" >> /etc/ssh/ssh_config
       - checkout
