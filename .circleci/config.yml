@@ -1,15 +1,7 @@
 version: 2
 jobs:
   build:
-    #machine: true
-    #steps:
-    #  - checkout
-    #  - run: curl -fsSL https://get.docksal.io | sh
-    #  - run: fin -v
-    #  - run: fin init
-    #  - run: fin test
-    #  - run: fin behat --version
-    #  - run: fin behat
+    working_directory: /var/www/
     docker:
       - image: seandietrich/php:latest
           environment:
