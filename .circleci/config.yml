@@ -1,12 +1,27 @@
 version: 2
 jobs:
   build:
-    machine: true
+    #machine: true
+    #steps:
+    #  - checkout
+    #  - run: curl -fsSL https://get.docksal.io | sh
+    #  - run: fin -v
+    #  - run: fin init
+    #  - run: fin test
+    #  - run: fin behat --version
+    #  - run: fin behat
+    docker:
+      - image: seandietrich/php:latest
+          environment:
+            APACHE_DOCUMENTROOT=/var/www/docroot
+      - image: mariadb:latest
+          name: db
+          environment:
+            MYSQL_ROOT_PASSWORD=root
+            MYSQL_DATABASE=drupal
+            MYSQL_USER=user
+            MYSQL_ROOT_PASSWORD=user
+      - image: selenium/standalone-chrome
+          name: browser
     steps:
       - checkout
-      - run: curl -fsSL https://get.docksal.io | sh
-      - run: fin -v
-      - run: fin init
-      - run: fin test
-      - run: fin behat --version
-      - run: fin behat
