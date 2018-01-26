@@ -3,8 +3,28 @@ jobs:
   build:
     working_directory: /var/www/
     docker:
-      - image: circleci/php:7-apache-node-browsers
-      - image: circleci/mysql:5.6-ram
+      - image: docksal/cli:php7
+        name: cli
+        environment:
+          - DOCROOT: docroot
+        links:
+          - web
+          - db
+          - browser
+      - image: docksal/web:2.1-apache2.4
+        name: web
+        environment:
+          - APACHE_DOCUMENTROOT: /var/www/docroot
+      - image: docksal/db:1.1-mysql-5.6
+        name: db
+        ports: 3306
+        environment:
+          - MYSQL_ROOT_PASSWORD: root
+          - MYSQL_DATABASE: drupal
+          - MYSQL_USER: user
+          - MYSQL_ROOT_PASSWORD: user
+      - image: selenium/standalone-chrome
+        name: browser
     steps:
       - setup_remote_docker:
           docker_layer_caching: true
