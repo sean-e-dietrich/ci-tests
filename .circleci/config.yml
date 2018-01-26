@@ -7,7 +7,7 @@ jobs:
         name: cli
         environment:
           - DOCROOT: docroot
-      - image: docksl/web:2.1-apache2.4
+      - image: docksal/web:2.1-apache2.4
         name: web
         environment:
           - APACHE_DOCUMENTROOT: /var/www/docroot
