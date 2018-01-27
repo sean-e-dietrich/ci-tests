@@ -11,6 +11,7 @@ jobs:
       - image: selenium/standalone-chrome
         name: browser
     steps:
+      - run: rm -rf /var/www/*
       - checkout
       - run:
           name: Download Selenium
